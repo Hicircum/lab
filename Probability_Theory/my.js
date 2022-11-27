@@ -118,6 +118,7 @@ function Init(n,p) {
             right: 40,
             bottom: 50
         },
+        color: ['#fd0100', '#ffd400', '#002bff', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
         legend: {
             data: ['二项分布', '泊松分布', '正态分布']
         },
@@ -163,7 +164,7 @@ function Init(n,p) {
                 filterMode: 'none',
                 yAxisIndex: [0],
                 startValue: -0.1,
-                endValue: 1.1
+                endValue: 0.6
             }
         ],
         series: [
