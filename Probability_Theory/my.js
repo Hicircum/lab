@@ -46,15 +46,30 @@ function C(n,k) {
 }
 
 
-// 图表部分
-var dom = document.getElementById('chart');
-var myChart = echarts.init(dom, null, {
-    renderer: 'canvas',
-    useDirtyRect: false
-});
-var app = {};
+function getColor() {
+    let color = [];
+    var BDc = document.getElementById("Binomial_Distribution_color").value;
+    var PDc = document.getElementById("Poisson_distribution_color").value;
+    var NDc = document.getElementById("Normal_distribution_color").value;
+    color.push(BDc);
+    color.push(PDc);
+    color.push(NDc);
+    return color;
+}
 
-var option;
+function getSmooth() {
+    var smooth = document.getElementById("issmooth").checked;
+    if (smooth) {
+        return 0.3
+    } else {
+        return false
+    }
+}
+
+function getYmax() {
+    var ym = parseFloat(document.getElementById("data-zoom-y").value);
+    return ym;
+}
 
 // 二项分布
 function Binomial_Distribution_Y(n,p,k) {
@@ -103,6 +118,15 @@ function Normal_distribution(a,b) {
 }
 
 
+// 图表部分
+var dom = document.getElementById('chart');
+var myChart = echarts.init(dom, null, {
+    renderer: 'canvas',
+    useDirtyRect: false
+});
+var app = {};
+var option;
+
 function Init(n,p) {
     option = {
         title: {
@@ -111,6 +135,7 @@ function Init(n,p) {
         tooltip: {
             trigger: 'axis'
         },
+        color: getColor(),
         animation: false,
         grid: {
             top: 40,
@@ -118,7 +143,6 @@ function Init(n,p) {
             right: 40,
             bottom: 50
         },
-        color: ['#fd0100', '#ffd400', '#002bff', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
         legend: {
             data: ['二项分布', '泊松分布', '正态分布']
         },
@@ -164,7 +188,7 @@ function Init(n,p) {
                 filterMode: 'none',
                 yAxisIndex: [0],
                 startValue: -0.1,
-                endValue: 0.6
+                endValue: getYmax()
             }
         ],
         series: [
@@ -173,21 +197,24 @@ function Init(n,p) {
                 type: 'line',
                 showSymbol: false,
                 clip: true,
-                data: Binomial_Distribution(n,p)
+                data: Binomial_Distribution(n,p),
+                smooth: getSmooth()
             },
             {
                 name: "泊松分布",
                 type: 'line',
                 showSymbol: false,
                 clip: true,
-                data: Poisson_distribution(n*p)
+                data: Poisson_distribution(n*p),
+                smooth: getSmooth()
             },
             {
                 name: "正态分布",
                 type: 'line',
                 showSymbol: false,
                 clip: true,
-                data: Normal_distribution(n*p,Math.pow((n*p*(1-p)),0.5))
+                data: Normal_distribution(n*p,Math.pow((n*p*(1-p)),0.5)),
+                smooth: getSmooth()
             }
         ]
     };
@@ -195,7 +222,6 @@ function Init(n,p) {
         myChart.setOption(option);
     }
 }
+window.addEventListener('resize', myChart.resize);
 
 Init(30,0.1);
-
-window.addEventListener('resize', myChart.resize);
