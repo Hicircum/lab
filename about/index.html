@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>关于我</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./tangerine-svgrepo-com.svg" color="#000000">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: calc(10px + 0.33vw);
+            -webkit-font-smoothing: antialiased;
+            padding: 5vh 10vw;
+            color: #121314;
+        }
+
+        h1 {
+            font-size: 4.5em;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        p {
+            font-size: 1.6em;
+            font-weight: 300;
+            line-height: 1.4;
+            max-width: 28em;
+        }
+
+        a {
+            text-decoration: none;
+            white-space: nowrap;
+            color: #121314;
+            position: relative;
+        }
+
+        a:after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            top: 66%;
+            left: -0.1em;
+            right: -0.1em;
+            bottom: 0;
+            transition: top 200ms cubic-bezier(0, 0.8, 0.13, 1);
+            background-color: rgba(79, 192, 141, 0.5);
+        }
+
+        a:hover:after {
+            top: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hi, there</h1>
+    <noscript>请启用JavaScript以获得最佳体验</noscript>
+    <p>
+        <span id="age">20</span>岁，事咸鱼。目前在学习前端开发
+        （<a href="https://vuejs.org" target="_blank">Vue.js</a>）
+        ，希望能够在前端有所建树。
+        我的爱好是折腾，喜欢尝试新鲜事物。我会一点python、java、c++以及前端三件套，
+        虽然不是很精通，但是我会努力学习的。
+    </p>
+    <p>
+        写过一些没什么用的东西，大多数没有保存下来。翻箱倒柜找到了
+        <a href="https://hicircum.github.io/lab/Probability_Theory/" target="_blank">概率论作业</a>
+        （cdn崩了，部分js不起作用）。折腾过网站，比如wordpress、hexo、hugo，最后还是删库跑路了（维护成本过高，黑历史太多）。
+    </p>
+    <p>
+        除此之外我喜欢追番，尤其是
+        <a href="https://zh.moegirl.org.cn/%E8%B0%81%E9%83%BD%E6%97%A0%E6%B3%95%E9%A2%84%E6%B5%8B%E7%9A%84%E5%91%BD%E8%BF%90%E4%B9%8B%E8%88%9E%E5%8F%B0" target="_blank">无法预测的命运之舞台</a>
+        （原创番）。关于未来我打算考研，想说的大概就这些了。
+    </p>
+    <p title="F12">
+        这个网页有一个彩蛋，你能找到吗？
+    </p>
+
+    <script>
+        document.getElementById('age').innerText = new Date().getFullYear() - 2003;
+        console.log("SETSUNA SCARLET STORM!!");
+        async function getBase64FromUrl (url) {
+            const data = await fetch(url);
+            const blob = await data.blob();
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = () => {
+                    const base64data = reader.result;
+                    resolve(base64data);
+                }
+            });
+        }
+        console.image = function(url) {
+            const image = new Image();
+            image.onload = function () {
+                var isChromium = navigator.userAgent.match(/chrome|chromium|crios/i) && !!window.chrome;
+            var style = [
+                'font-size: 0px;',
+                !isChromium ? `line-height: ${this.height}px;` : '',
+                `padding: ${this.height / 2}px ${this.width / 2}px;`,
+                `background: url(${url}) center center no-repeat;`,
+                'background-size: contain;',
+            ].join(' ');
+            console.log('%c ', style);
+            };
+            image.src = url;
+        };
+        getBase64FromUrl('https://hicircum.github.io/lab/about/setsuna.jpg').then(console.image);
+    </script>
+</body>
+
+</html>
